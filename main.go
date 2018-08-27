@@ -27,7 +27,11 @@ func main() {
 
 // tester
 func tester(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello %s!", html.EscapeString(
-		r.URL.Query().Get("name")))
+	if r.URL.Query().Get("name") == "" {
+		fmt.Fprintf(w, "Hello %s!", "Unknown Entity"))
+	} else {
+		fmt.Fprintf(w, "Hello %s!", html.EscapeString(
+			r.URL.Query().Get("name")))
+	}
 	log.Printf("request received, details follow:\n%+v\n", r)
 }
